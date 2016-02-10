@@ -50,6 +50,10 @@ class TestGame(unittest.TestCase):
         self.game.roll_many(16,0)
         self.assertEqual(self.game.score(), 22)
 
+    def test_CanRollAPerfectGame(self):
+        self.game.roll_many(12, 10)
+        self.assertEqual(self.game.score(), 300)
+
 
 
 #     def test_score(self):
