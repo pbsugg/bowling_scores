@@ -36,13 +36,35 @@
 class Game:
 
     def __init__(self):
-        self.score = 0
+        self.rolls = []
 
     def roll(self, number_to_roll):
-        self.score = self.score + number_to_roll
+        self.rolls.append(number_to_roll)
 
-    def roll_many(self, score):
-        pass
+    def roll_many(self, number_of_rolls, pins):
+        for i in range(number_of_rolls):
+            self.roll(pins)
+
+    def score(self):
+        score = 0
+        frame = 0
+        first_in_frame = 0
+        while frame < 10:
+            if self.rolls[first_in_frame] == 10:
+                next_two_rolls_score = (self.rolls[first_in_frame + 1]
+                                        + self.rolls[first_in_frame + 2]
+                                        )
+                score += (10 + next_two_rolls_score)
+                first_in_frame += 1
+            elif self.rolls[first_in_frame] + self.rolls[first_in_frame + 1] == 10:
+                score += 10 + self.rolls[first_in_frame + 2]
+                first_in_frame += 2
+            else:
+                score += self.rolls[first_in_frame] + self.rolls[first_in_frame + 1]
+                first_in_frame += 2
+            frame += 1
+            print(score)
+        return score
 
 class Frame:
 

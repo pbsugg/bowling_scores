@@ -27,14 +27,28 @@ class TestGame(unittest.TestCase):
         self.assertIsInstance(self.game, Game)
 
     def test_rollAnAllGutterGame(self):
-        for i in range(20):
-            self.game.roll(0)
-        self.assertEqual(self.game.score, 0)
+        self.game.roll_many(20, 0)
+        self.assertEqual(self.game.score(), 0)
 
     def test_RollAllOnes(self):
-        for i in range(20):
-            self.game.roll(1)
-        self.assertEqual(self.game.score, 20)
+        self.game.roll_many(20, 1)
+        self.assertEqual(self.game.score(), 20)
+
+    def test_RollASpare(self):
+        # first two rolls make spare in first frame
+        self.game.roll(5)
+        self.game.roll(5)
+        # third roll makes not a spare
+        self.game.roll(3)
+        self.game.roll_many(17,0)
+        self.assertEqual(self.game.score(), 16)
+
+    def test_RollAStrike(self):
+        self.game.roll(10)
+        self.game.roll(3)
+        self.game.roll(3)
+        self.game.roll_many(16,0)
+        self.assertEqual(self.game.score(), 22)
 
 
 
