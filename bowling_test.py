@@ -1,5 +1,7 @@
 import unittest
 import bowl_scorer
+from bowl_scorer import Game
+from bowl_scorer import Roll
 
 # class TestBowlingScore(unittest.TestCase):
 #
@@ -9,14 +11,31 @@ import bowl_scorer
 #
 #     def test_complete(self):
 
-
+# class TestRoll(unittest.TestCase):
+#
+#     def test_rollcreate(self):
+#         roll = Roll()
+#
 
 class TestGame(unittest.TestCase):
 
-    def test_roll(self):
-        game = Game()
-        rolls = 20
-        game.roll(3)
+
+    def setUp(self):
+        self.game = Game()
+
+    def test_creategame(self):
+        self.assertIsInstance(self.game, Game)
+
+    def test_rollAnAllGutterGame(self):
+        for i in range(20):
+            self.game.roll(0)
+        self.assertEqual(self.game.score, 0)
+
+    def test_RollAllOnes(self):
+        for i in range(20):
+            self.game.roll(1)
+        self.assertEqual(self.game.score, 20)
+
 
 
 #     def test_score(self):

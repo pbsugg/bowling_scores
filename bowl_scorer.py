@@ -36,6 +36,12 @@
 class Game:
 
     def __init__(self):
+        self.score = 0
+
+    def roll(self, number_to_roll):
+        self.score = self.score + number_to_roll
+
+    def roll_many(self, score):
         pass
 
 class Frame:
