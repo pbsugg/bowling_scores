@@ -1,5 +1,7 @@
 import unittest
 import bowl_scorer
+from bowl_scorer import Game
+from bowl_scorer import Roll
 
 # class TestBowlingScore(unittest.TestCase):
 #
@@ -9,14 +11,49 @@ import bowl_scorer
 #
 #     def test_complete(self):
 
-
+# class TestRoll(unittest.TestCase):
+#
+#     def test_rollcreate(self):
+#         roll = Roll()
+#
 
 class TestGame(unittest.TestCase):
 
-    def test_roll(self):
-        game = Game()
-        rolls = 20
-        game.roll(3)
+
+    def setUp(self):
+        self.game = Game()
+
+    def test_creategame(self):
+        self.assertIsInstance(self.game, Game)
+
+    def test_rollAnAllGutterGame(self):
+        self.game.roll_many(20, 0)
+        self.assertEqual(self.game.score(), 0)
+
+    def test_RollAllOnes(self):
+        self.game.roll_many(20, 1)
+        self.assertEqual(self.game.score(), 20)
+
+    def test_RollASpare(self):
+        # first two rolls make spare in first frame
+        self.game.roll(5)
+        self.game.roll(5)
+        # third roll makes not a spare
+        self.game.roll(3)
+        self.game.roll_many(17,0)
+        self.assertEqual(self.game.score(), 16)
+
+    def test_RollAStrike(self):
+        self.game.roll(10)
+        self.game.roll(3)
+        self.game.roll(3)
+        self.game.roll_many(16,0)
+        self.assertEqual(self.game.score(), 22)
+
+    def test_CanRollAPerfectGame(self):
+        self.game.roll_many(12, 10)
+        self.assertEqual(self.game.score(), 300)
+
 
 
 #     def test_score(self):
